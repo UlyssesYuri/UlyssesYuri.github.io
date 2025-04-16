@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <title>Hexo | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">Hexo</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                
+                <div class="post-main">
+
+    
+    
+        <div class="post-main-title">
+            MergeSort
+        </div>
+        <div class="post-meta">
+            2023-10-02
+        </div>
+        <div class="post-md">
+            <h1 id="Principle"><a href="#Principle" class="headerlink" title="Principle"></a>Principle</h1><p>Merge Sort is an efficient sorting algorithm built upon the merge operation, serving as a classic example of the divide-and-conquer (Divide and Conquer) approach. It merges already sorted subsequences to obtain a fully sorted sequence; in other words, each subsequence is first sorted, and then these sorted segments are merged. Merging two sorted lists into a single sorted list is known as a “two-way merge.” Merge Sort is a stable sorting algorithm.</p>
+<p>As a typical application of the divide-and-conquer concept, Merge Sort is implemented through the combination of two methods:</p>
+<ul>
+<li><strong>Top-down recursion</strong> (since any recursive method can be rewritten iteratively, leading to the second method), and</li>
+<li><strong>Bottom-up iteration</strong> .</li>
+</ul>
+<h1 id="Algorithm-Steps"><a href="#Algorithm-Steps" class="headerlink" title="Algorithm Steps"></a>Algorithm Steps</h1><ol>
+<li><strong>Allocate space</strong> whose size is equal to the sum of the two already sorted subsequences. This space will hold the merged result.</li>
+<li><strong>Set two pointers</strong> , initially pointing to the start of each sorted subsequence.</li>
+<li><strong>Compare the elements</strong> at the two pointers, choose the smaller one to place into the merged space, and move that pointer forward.</li>
+<li><strong>Repeat step 3</strong> until one pointer reaches the end of its sequence.</li>
+<li><strong>Copy all remaining elements</strong> from the other sequence directly to the end of the merged sequence.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">mergeSort</span><span class="params">(<span class="type">int</span>[] array)</span> &#123;</span><br><span class="line">    mergeRangeSort(array, <span class="number">0</span>, array.length);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">mergeRangeSort</span><span class="params">(<span class="type">int</span>[] array, <span class="type">int</span> from, <span class="type">int</span> to)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> to - from;</span><br><span class="line">    <span class="keyword">if</span> (size &lt;= <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">mid</span> <span class="operator">=</span> from + (to - from) / <span class="number">2</span>;</span><br><span class="line"></span><br><span class="line">    mergeRangeSort(array, from, mid);</span><br><span class="line">    mergeRangeSort(array, mid, to);</span><br><span class="line"></span><br><span class="line">    merge(array, from, mid, to);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">merge</span><span class="params">(<span class="type">int</span>[] array, <span class="type">int</span> from, <span class="type">int</span> mid, <span class="type">int</span> to)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">size</span> <span class="operator">=</span> to - from;</span><br><span class="line">    <span class="type">int</span>[] newArray = <span class="keyword">new</span> <span class="title class_">int</span>[size];</span><br><span class="line"></span><br><span class="line">    <span class="type">int</span> <span class="variable">idx1</span> <span class="operator">=</span> from;</span><br><span class="line">    <span class="type">int</span> <span class="variable">idx2</span> <span class="operator">=</span> mid;</span><br><span class="line">    <span class="type">int</span> <span class="variable">index</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (idx1 &lt; mid &amp;&amp; idx2 &lt; to) &#123;</span><br><span class="line">        <span class="keyword">if</span> (array[idx1] &lt;= array[idx2]) &#123;</span><br><span class="line">            newArray[index++] = array[idx1++];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            newArray[index++] = array[idx2++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (idx1 &lt; mid) &#123;</span><br><span class="line">        <span class="keyword">while</span> (idx1 &lt; mid) &#123;</span><br><span class="line">            newArray[index++] = array[idx1++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (idx2 &lt; to) &#123;</span><br><span class="line">            newArray[index++] = array[idx2++];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; size; i++) &#123;</span><br><span class="line">        array[from + i] = newArray[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Complexity"><a href="#Complexity" class="headerlink" title="Complexity"></a>Complexity</h1><p>Like selection sort, Merge Sort’s performance is not affected by the input data, but it outperforms selection sort because it consistently achieves a time complexity of O(n log n). The trade-off is the need for additional memory space.</p>
+<p>Because quick sort uses a middle index to recursively divide the array into left and right sub-intervals—forming a structure similar to a binary tree—the depth of the tree can be viewed as the number of recursive calls. When you keep splitting in the middle, you effectively form a complete binary tree at the lowest depth, leading to a minimal time complexity of O(log(n)). Merging (or overwriting) all elements back to the original array requires O(n) time from start to finish. Combined, this results in O(n log(n)).</p>
+
+        </div>
+
+    
+
+</div>
+                <div class="footer">
+    <span>Copyright © 2022 Hexo</span>
+    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這李設計</a></span>
+</div>
+
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>
