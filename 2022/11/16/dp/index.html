@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport" />
+    <link rel="alternate icon" type="image/png" href="/img/favicon.png">
+    <title>Hexo | </title>
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    
+<link rel="stylesheet" href="/css/markdown.css">
+
+    
+<link rel="stylesheet" href="/css/fonts.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+    <body>
+        <div class="paper">
+            <div class="paper-main">
+                
+                    <div class="post-header">
+    <a class="logo" href="/">Hexo</a>
+    <a class="go-home" href="/">
+        <svg width="8" height="14" viewBox="0 0 8 14">
+            <path d="M7 1L1 7l6 6" stroke="#000" stroke-width="2" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </a>
+</div>
+                
+                <div class="post-main">
+
+    
+    
+        <div class="post-main-title">
+            dp
+        </div>
+        <div class="post-meta">
+            2022-11-16
+        </div>
+        <div class="post-md">
+            <h1 id="Core-Concept-of-Dynamic-Programming"><a href="#Core-Concept-of-Dynamic-Programming" class="headerlink" title="Core Concept of Dynamic Programming"></a>Core Concept of Dynamic Programming</h1><ul>
+<li><strong>Key Idea</strong> : Break down a large problem into smaller subproblems and “remember the past,” i.e., use memoization or tabulation to store the results of already-solved subproblems. This avoids repeated calculations and boosts efficiency.</li>
+<li><strong>Main Characteristics</strong> :</li>
+</ul>
+<ol>
+<li><strong>Overlapping Subproblems</strong> : The same subproblem appears multiple times in different parts of the larger problem.</li>
+<li><strong>Optimal Substructure</strong> : The optimal solution to the original problem can be derived from the optimal solutions to its subproblems.</li>
+<li><strong>State Transition</strong> : The solution of a larger subproblem is built using the solutions of smaller subproblems.</li>
+</ol>
+<h1 id="Common-Approaches"><a href="#Common-Approaches" class="headerlink" title="Common Approaches"></a>Common Approaches</h1><p><strong>Top-Down (Memoized Recursion)</strong></p>
+<ul>
+<li>Write a recursive function that represents the solution to the “current subproblem.”</li>
+<li>If it’s already computed, return it directly from the cache; otherwise, compute and store it.</li>
+<li>It’s like keeping a “cheat sheet” — whenever you face a subproblem you’ve solved, just look it up.</li>
+</ul>
+<p><strong>Bottom-Up (Tabulation)</strong></p>
+<ul>
+<li>Define a one-dimensional array <code>dp[]</code> or two-dimensional array <code>dp[][]</code>, where <code>dp[i]</code> represents the solution to a particular subproblem.</li>
+<li>Start from the base subproblems and build up until you reach the final solution.</li>
+<li>The logic is straightforward: solve small subproblems step by step, and the final <code>dp[n]</code> (or equivalent) holds the answer.</li>
+</ul>
+<h1 id="Suitable-Scenarios-Examples"><a href="#Suitable-Scenarios-Examples" class="headerlink" title="Suitable Scenarios &amp; Examples"></a>Suitable Scenarios &amp; Examples</h1><ul>
+<li><strong>Fibonacci Sequence</strong> : The n-th term is the sum of the two preceding ones. DP avoids recalculating the same terms.</li>
+<li><strong>Shortest Path Problem (e.g., Dijkstra)</strong> : Continuously updating the distance to each node using DP-like logic.</li>
+<li><strong>Knapsack Problem</strong> : The state transition equation looks like <code>dp[i][w] = max(dp[i-1][w], dp[i-1][w - weight] + value)</code>.</li>
+<li><strong>Edit Distance</strong> : Calculating the minimum operations to transform one string into another, which is a classic DP use case.</li>
+</ul>
+<h1 id="Code-Example"><a href="#Code-Example" class="headerlink" title="Code Example"></a>Code Example</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">KnapsackExample</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">knapSack</span><span class="params">(<span class="type">int</span>[] values, <span class="type">int</span>[] weights, <span class="type">int</span> capacity)</span> &#123;</span><br><span class="line">        <span class="type">int</span> <span class="variable">n</span> <span class="operator">=</span> values.length;</span><br><span class="line">        <span class="type">int</span>[][] dp = <span class="keyword">new</span> <span class="title class_">int</span>[n + <span class="number">1</span>][capacity + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">w</span> <span class="operator">=</span> <span class="number">1</span>; w &lt;= capacity; w++) &#123;</span><br><span class="line">  </span><br><span class="line">                dp[i][w] = dp[i - <span class="number">1</span>][w];</span><br><span class="line">                <span class="keyword">if</span> (weights[i - <span class="number">1</span>] &lt;= w) &#123;</span><br><span class="line">                    dp[i][w] = Math.max(</span><br><span class="line">                            dp[i][w], </span><br><span class="line">                            dp[i - <span class="number">1</span>][w - weights[i - <span class="number">1</span>]] + values[i - <span class="number">1</span>]</span><br><span class="line">                    );</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">  </span><br><span class="line">        <span class="keyword">return</span> dp[n][capacity];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+        </div>
+
+    
+
+</div>
+                <div class="footer">
+    <span>Copyright © 2022 Hexo</span>
+    <span>Theme Designed By <a target="_blank" href="https://zheli.design/one-paper">這李設計</a></span>
+</div>
+
+
+<link rel="stylesheet" href="/css/a11y-dark.min.css">
+
+
+<script src="/js/highlight.min.js"></script>
+
+
+<script src="/js/highlightjs-line-numbers.js"></script>
+
+
+<script>
+    hljs.initHighlightingOnLoad();
+    hljs.initLineNumbersOnLoad();
+</script>
+
+            </div>
+        </div>
+    </body>
+</html>
